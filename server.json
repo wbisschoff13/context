@@ -1,16 +1,16 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.neuledge/context",
+  "name": "io.github.wbisschoff13/libref",
   "description": "Local-first documentation for AI agents. Offline, instant, private doc retrieval.",
   "repository": {
-    "url": "https://github.com/neuledge/context",
+    "url": "https://github.com/wbisschoff13/libref",
     "source": "github"
   },
   "version": "0.2.3",
   "packages": [
     {
       "registryType": "npm",
-      "identifier": "@neuledge/context",
+      "identifier": "@wbisschoff13/libref",
       "version": "0.2.3",
       "transport": {
         "type": "stdio"

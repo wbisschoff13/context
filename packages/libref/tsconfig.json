@@ -5,8 +5,8 @@
     "module": "NodeNext",
     "baseUrl": ".",
     "paths": {
-      "@neuledge/context": ["src/index.js"],
-      "@neuledge/context/*": ["src/*"]
+      "@wbisschoff13/libref": ["src/index.js"],
+      "@wbisschoff13/libref/*": ["src/*"]
     },
     "noEmit": true
   },

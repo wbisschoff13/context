@@ -7,7 +7,7 @@
 
 import { mkdirSync, rmSync } from "node:fs";
 import { resolve } from "node:path";
-import { isMissingRefError } from "@neuledge/context";
+import { isMissingRefError } from "@wbisschoff13/libref";
 import { Command } from "commander";
 import {
   buildFromDefinition,

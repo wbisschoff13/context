@@ -1,6 +1,6 @@
 /**
  * Configuration for download servers.
- * Stored in ~/.context/config.json.
+ * Stored in ~/.libref/config.json.
  */
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -17,13 +17,13 @@ export interface Config {
   servers: ServerConfig[];
 }
 
-const CONFIG_DIR = join(homedir(), ".context");
+const CONFIG_DIR = join(homedir(), ".libref");
 const CONFIG_PATH = join(CONFIG_DIR, "config.json");
 
 const DEFAULT_CONFIG: Config = {
   servers: [
     {
-      name: "neuledge",
+      name: "libref",
       url: "https://api.context.neuledge.com",
       default: true,
     },

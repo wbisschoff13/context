@@ -1,6 +1,6 @@
 {
   "name": "@neuledge/registry",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "private": true,
   "description": "Registry infrastructure for building and publishing context packages",
   "type": "module",
@@ -25,7 +25,7 @@
   "author": "Neuledge",
   "license": "Apache-2.0",
   "dependencies": {
-    "@neuledge/context": "workspace:*",
+    "@wbisschoff13/libref": "workspace:*",
     "commander": "^14.0.0",
     "p-retry": "^8.0.0",
     "yaml": "^2.8.2",

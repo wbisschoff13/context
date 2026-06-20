@@ -9,8 +9,8 @@ COPY . .
 # (and the --ignore-scripts trap that left the .node file missing).
 RUN corepack enable \
   && pnpm install --frozen-lockfile \
-  && pnpm --filter @neuledge/context build \
-  && pnpm --filter @neuledge/context deploy --prod --legacy /deploy
+  && pnpm --filter @wbisschoff13/libref build \
+  && pnpm --filter @wbisschoff13/libref deploy --prod --legacy /deploy
 
 
 FROM node:22-bookworm-slim AS runtime

@@ -1,13 +1,13 @@
 <p align="center">
-  <h1 align="center">Context</h1>
+  <h1 align="center">Libref</h1>
   <p align="center">
     <strong>Up-to-date docs for AI agents — local, instant, plug and play.</strong>
   </p>
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@neuledge/context"><img src="https://img.shields.io/npm/v/@neuledge/context.svg" alt="npm version"></a>
-  <a href="https://github.com/neuledge/context/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a>
+  <a href="https://www.npmjs.com/package/@wbisschoff13/libref"><img src="https://img.shields.io/npm/v/@wbisschoff13/libref.svg" alt="npm version"></a>
+  <a href="https://github.com/wbisschoff13/libref/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.0-blue.svg" alt="TypeScript"></a>
 </p>
 
@@ -27,12 +27,12 @@ The fix isn't better prompting. It's giving your AI the right docs.
 
 ## How It Works
 
-Context is an MCP server backed by a [community-driven package registry](registry/) with **100+ popular libraries** already built and ready to use. When your AI agent needs documentation, it searches the registry, downloads the right package, and queries it locally — all automatically.
+Libref is an MCP server backed by a [community-driven package registry](registry/) with **100+ popular libraries** already built and ready to use. When your AI agent needs documentation, it searches the registry, downloads the right package, and queries it locally — all automatically.
 
 **Install once. Configure once. Then just ask your AI.**
 
 <p align="center">
-  <img src="https://media.githubusercontent.com/media/neuledge/context/main/packages/context/assets/ai-sdk-demo.gif" alt="Context demo" width="800">
+  <img src="https://media.githubusercontent.com/media/wbisschoff13/libref/main/packages/libref/assets/ai-sdk-demo.gif" alt="Libref demo" width="800">
 </p>
 
 ---
@@ -42,18 +42,18 @@ Context is an MCP server backed by a [community-driven package registry](registr
 ### 1. Install
 
 ```bash
-npm install -g @neuledge/context
+npm install -g @wbisschoff13/libref
 ```
 
 ### 2. Connect to your AI agent
 
-Context works with any MCP-compatible agent. Pick yours:
+Libref works with any MCP-compatible agent. Pick yours:
 
 <details>
 <summary><strong>Claude Code</strong></summary>
 
 ```bash
-claude mcp add context -- context serve
+claude mcp add libref -- libref serve
 ```
 
 </details>
@@ -69,8 +69,8 @@ Add to your config file:
 ```json
 {
   "mcpServers": {
-    "context": {
-      "command": "context",
+    "libref": {
+      "command": "libref",
       "args": ["serve"]
     }
   }
@@ -89,8 +89,8 @@ Add to `~/.cursor/mcp.json` (global) or `.cursor/mcp.json` (project-specific):
 ```json
 {
   "mcpServers": {
-    "context": {
-      "command": "context",
+    "libref": {
+      "command": "libref",
       "args": ["serve"]
     }
   }
@@ -107,14 +107,14 @@ Or use **Settings > Developer > Edit Config** to add the server through the UI.
 Either use the CLI
 
 ```bash
-codex mcp add context -- context serve
+codex mcp add libref -- libref serve
 ```
 
 Or add to `~/.codex/config.toml` (global) or `.codex/config.toml` (project-specific):
 
 ```toml
-[mcp_servers.context]
-command = "context"
+[mcp_servers.libref]
+command = "libref"
 args = ["serve"]
 ```
 
@@ -132,9 +132,9 @@ Add to `.vscode/mcp.json` in your workspace:
 ```json
 {
   "servers": {
-    "context": {
+    "libref": {
       "type": "stdio",
-      "command": "context",
+      "command": "libref",
       "args": ["serve"]
     }
   }
@@ -154,8 +154,8 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
 ```json
 {
   "mcpServers": {
-    "context": {
-      "command": "context",
+    "libref": {
+      "command": "libref",
       "args": ["serve"]
     }
   }
@@ -174,9 +174,9 @@ Add to your Zed `settings.json` (press `cmd+,` or `ctrl+,` twice):
 ```json
 {
   "context_servers": {
-    "context": {
+    "libref": {
       "command": {
-        "path": "context",
+        "path": "libref",
         "args": ["serve"]
       }
     }
@@ -195,9 +195,9 @@ Run `goose configure` and select **Command-line Extension**, or add directly to 
 
 ```yaml
 extensions:
-  context:
+  libref:
     type: stdio
-    command: context
+    command: libref
     args:
       - serve
     timeout: 300
@@ -214,8 +214,8 @@ Add to `~/.config/opencode/opencode.json`:
 ```json
 {
   "mcp": {
-    "context": {
-      "command": ["context", "serve"],
+    "libref": {
+      "command": ["libref", "serve"],
       "enabled": true,
       "type": "local"
     }
@@ -231,13 +231,13 @@ That's it. Just ask:
 
 > "How do I create middleware in Next.js?"
 
-Your agent searches the [community registry](registry/), downloads the docs, and answers with accurate, version-specific information. Everything happens automatically — no manual `context install` needed for registry packages.
+Your agent searches the [community registry](registry/), downloads the docs, and answers with accurate, version-specific information. Everything happens automatically — no manual `libref install` needed for registry packages.
 
 ---
 
 ## The Community Registry
 
-The registry is what makes Context plug and play. It's a growing collection of **100+ pre-built documentation packages** maintained by the community. Think of it like a package manager, but for AI-ready docs.
+The registry is what makes Libref plug and play. It's a growing collection of **100+ pre-built documentation packages** maintained by the community. Think of it like a package manager, but for AI-ready docs.
 
 **Popular packages available today:**
 
@@ -253,13 +253,13 @@ The registry is what makes Context plug and play. It's a growing collection of *
 
 [Browse the full registry →](registry/)
 
-**Anyone can contribute.** If a library you use isn't listed, [submit a PR](registry/) to add it — your contribution helps every Context user.
+**Anyone can contribute.** If a library you use isn't listed, [submit a PR](registry/) to add it — your contribution helps every Libref user.
 
 ---
 
 ## Why Local?
 
-Context runs entirely on your machine. Docs are downloaded once and stored as compact SQLite databases in `~/.context/packages/`. After that, everything is local.
+Libref runs entirely on your machine. Docs are downloaded once and stored as compact SQLite databases in `~/.libref/packages/`. After that, everything is local.
 
 - **Fast** — Local SQLite queries return in under 10ms
 - **Offline** — Works on flights, in coffee shops, anywhere
@@ -271,85 +271,85 @@ Context runs entirely on your machine. Docs are downloaded once and stored as co
 
 ## Beyond the Registry
 
-The registry covers popular open-source libraries, but Context also works with any documentation source. Use `context add` to build packages from private repos, internal libraries, websites with [llms.txt](https://llmstxt.org/), or anything not yet in the registry.
+The registry covers popular open-source libraries, but Libref also works with any documentation source. Use `libref add` to build packages from private repos, internal libraries, websites with [llms.txt](https://llmstxt.org/), or anything not yet in the registry.
 
 ```bash
 # Build from a git repository
-context add https://github.com/your-company/design-system
+libref add https://github.com/your-company/design-system
 
 # Build from a local directory
-context add ./my-project
+libref add ./my-project
 
 # Specific version tag
-context add https://github.com/vercel/next.js/tree/v16.0.0
+libref add https://github.com/vercel/next.js/tree/v16.0.0
 
 # Build from a website's llms.txt
-context add https://svelte.dev
+libref add https://svelte.dev
 ```
 
 Once built, share packages with your team — they're portable `.db` files that install instantly:
 
 ```bash
 # Export a package
-context add ./my-project --name my-lib --pkg-version 2.0 --save ./packages/
+libref add ./my-project --name my-lib --pkg-version 2.0 --save ./packages/
 
 # Teammate installs it (no build step needed)
-context add ./packages/my-lib@2.0.db
+libref add ./packages/my-lib@2.0.db
 ```
 
 ---
 
 ## :whale: Docker
 
-Run Context as a containerized HTTP server for multi-client or Kubernetes deployments:
+Run Libref as a containerized HTTP server for multi-client or Kubernetes deployments:
 
 ```bash
 # Run from the repository root (required for the monorepo lockfile)
-docker build -t context:local -f packages/context/Dockerfile .
-docker run --rm -p 8080:8080 context:local
+docker build -t libref:local -f packages/libref/Dockerfile .
+docker run --rm -p 8080:8080 libref:local
 ```
 
-The container starts Context with HTTP transport on port 8080, accessible at `http://localhost:8080/mcp`. The image uses a multi-stage build with `node:22-bookworm-slim` for native module compatibility.
+The container starts Libref with HTTP transport on port 8080, accessible at `http://localhost:8080/mcp`. The image uses a multi-stage build with `node:22-bookworm-slim` for native module compatibility.
 
 ---
 
 ## :books: CLI Reference
 
-### `context browse <package>`
+### `libref browse <package>`
 
 Search for packages available on the registry server.
 
 ```bash
 # Browse by registry/name
-context browse npm/next
+libref browse npm/next
 
 # Output:
 #   npm/next@15.1.3           3.4 MB  The React Framework for the Web
 #   npm/next@15.0.4           3.2 MB  The React Framework for the Web
 #   ...
 #
-#   Found 12 versions. Install with: context install npm/next
+#   Found 12 versions. Install with: libref install npm/next
 
 # Browse with just a name (defaults to npm)
-context browse react
+libref browse react
 ```
 
-### `context install <registry/name> [version]`
+### `libref install <registry/name> [version]`
 
 Download and install a pre-built package from the registry server.
 
 ```bash
 # Install latest version
-context install npm/next
+libref install npm/next
 
 # Install a specific version
-context install npm/next 15.0.4
+libref install npm/next 15.0.4
 
 # Install from other registries
-context install pip/django
+libref install pip/django
 ```
 
-### `context add <source>`
+### `libref add <source>`
 
 Build and install a documentation package from source. Use this for libraries not in the registry, or for private/internal docs. The source type is auto-detected.
 
@@ -359,19 +359,19 @@ Works with GitHub, GitLab, Bitbucket, Codeberg, or any git URL:
 
 ```bash
 # HTTPS URLs
-context add https://github.com/vercel/next.js
-context add https://gitlab.com/org/repo
-context add https://bitbucket.org/org/repo
+libref add https://github.com/vercel/next.js
+libref add https://gitlab.com/org/repo
+libref add https://bitbucket.org/org/repo
 
 # Specific tag or branch
-context add https://github.com/vercel/next.js/tree/v16.0.0
+libref add https://github.com/vercel/next.js/tree/v16.0.0
 
 # SSH URLs
-context add git@github.com:user/repo.git
-context add ssh://git@github.com/user/repo.git
+libref add git@github.com:user/repo.git
+libref add ssh://git@github.com/user/repo.git
 
 # Custom options
-context add https://github.com/vercel/next.js --path packages/docs --name nextjs
+libref add https://github.com/vercel/next.js --path packages/docs --name nextjs
 ```
 
 **From local directory:**
@@ -380,13 +380,13 @@ Build a package from documentation in a local folder:
 
 ```bash
 # Auto-detects docs folder (docs/, documentation/, doc/)
-context add ./my-project
+libref add ./my-project
 
 # Specify docs path explicitly
-context add /path/to/repo --path docs
+libref add /path/to/repo --path docs
 
 # Custom package name and version
-context add ./my-lib --name my-library --pkg-version 1.0.0
+libref add ./my-lib --name my-library --pkg-version 1.0.0
 ```
 
 | Option | Description |
@@ -400,52 +400,52 @@ context add ./my-lib --name my-library --pkg-version 1.0.0
 
 ```bash
 # Save to a directory (auto-names as name@version.db)
-context add https://github.com/vercel/next.js --save ./packages/
+libref add https://github.com/vercel/next.js --save ./packages/
 
 # Save to a specific file
-context add ./my-docs --save ./my-package.db
+libref add ./my-docs --save ./my-package.db
 ```
 
 **From website ([llms.txt](https://llmstxt.org/)):**
 
-Many websites publish an `llms.txt` file with AI-ready documentation. Context auto-detects and fetches it. When the site only provides `llms.txt` (an index of links rather than the inlined `llms-full.txt`), Context follows each link and fetches the linked document:
+Many websites publish an `llms.txt` file with AI-ready documentation. Libref auto-detects and fetches it. When the site only provides `llms.txt` (an index of links rather than the inlined `llms-full.txt`), Libref follows each link and fetches the linked document:
 
 ```bash
 # Auto-fetches llms-full.txt or llms.txt from the site
-context add https://svelte.dev
-context add https://mui.com/material-ui
+libref add https://svelte.dev
+libref add https://mui.com/material-ui
 
 # Direct URL to a specific llms.txt file
-context add https://svelte.dev/docs/svelte/llms.txt
+libref add https://svelte.dev/docs/svelte/llms.txt
 
 # Custom package name
-context add https://react-aria.adobe.com --name react-aria
+libref add https://react-aria.adobe.com --name react-aria
 ```
 
 **From an arbitrary URL (blog posts, articles, raw Markdown):**
 
-If no `llms.txt` is found, Context falls back to fetching the page directly. HTML pages are run through a readability extractor (defuddle) so subscribe CTAs, navigation, and comment widgets don't end up in the package:
+If no `llms.txt` is found, Libref falls back to fetching the page directly. HTML pages are run through a readability extractor (defuddle) so subscribe CTAs, navigation, and comment widgets don't end up in the package:
 
 ```bash
 # A blog post
-context add https://overreacted.io/things-i-dont-know-as-of-2018/
+libref add https://overreacted.io/things-i-dont-know-as-of-2018/
 
 # Raw Markdown from GitHub
-context add https://raw.githubusercontent.com/neuledge/context/main/README.md --name context-readme
+libref add https://raw.githubusercontent.com/wbisschoff13/libref/main/README.md --name libref-readme
 ```
 
-For subscriber-only content on platforms you have a paid account for, see [`context auth`](#context-auth) below.
+For subscriber-only content on platforms you have a paid account for, see [`libref auth`](#libref-auth) below.
 
 **From URL:**
 
 ```bash
-context add https://cdn.example.com/react@18.db
+libref add https://cdn.example.com/react@18.db
 ```
 
 **From local file:**
 
 ```bash
-context add ./nextjs@15.0.db
+libref add ./nextjs@15.0.db
 ```
 
 **Finding the right documentation repository:**
@@ -454,12 +454,12 @@ Many popular projects keep their documentation in a separate repository from the
 
 ```bash
 # Example: React's docs are in a separate repo
-context add https://github.com/facebook/react
+libref add https://github.com/facebook/react
 # ⚠️  Warning: Only 45 sections found...
 # The warning includes a Google search link to help find the docs repo
 
 # The actual React docs repository:
-context add https://github.com/reactjs/react.dev
+libref add https://github.com/reactjs/react.dev
 ```
 
 Common patterns for documentation repositories:
@@ -469,12 +469,12 @@ Common patterns for documentation repositories:
 
 When the CLI detects few documentation sections, it will show a Google search link to help you find the correct repository.
 
-### `context list`
+### `libref list`
 
 Show installed packages.
 
 ```bash
-$ context list
+$ libref list
 
 Installed packages:
 
@@ -484,47 +484,47 @@ Installed packages:
 Total: 2 packages (6.3 MB)
 ```
 
-### `context remove <name>`
+### `libref remove <name>`
 
 Remove a package.
 
 ```bash
-context remove nextjs
+libref remove nextjs
 ```
 
-### `context auth`
+### `libref auth`
 
-Store per-platform cookies or headers so `context add <url>` can fetch subscriber-only content you have a legitimate account for (e.g., a paid Substack or Medium subscription). Credentials are stored in `~/.context/auth.json` with `0600` permissions, and matched by domain (with one level of parent-domain fallback for subdomains).
+Store per-platform cookies or headers so `libref add <url>` can fetch subscriber-only content you have a legitimate account for (e.g., a paid Substack or Medium subscription). Credentials are stored in `~/.libref/auth.json` with `0600` permissions, and matched by domain (with one level of parent-domain fallback for subdomains).
 
 ```bash
 # Store cookies for a domain
-context auth add substack.com --cookies "substack.sid=YOUR_SID"
+libref auth add substack.com --cookies "substack.sid=YOUR_SID"
 
 # Add a custom header too
-context auth add medium.com --cookies "sid=..." --header "x-frontend: web"
+libref auth add medium.com --cookies "sid=..." --header "x-frontend: web"
 
 # List configured auth
-context auth list
+libref auth list
 
 # Remove auth
-context auth remove substack.com
+libref auth remove substack.com
 ```
 
-### `context serve`
+### `libref serve`
 
 Start the MCP server (used by AI agents).
 
 ```bash
 # Stdio transport (default, for single-client MCP integrations)
-context serve
+libref serve
 
 # HTTP transport (for multi-client access over the network)
-context serve --http
-context serve --http 3000
-context serve --http 3000 --host 0.0.0.0
+libref serve --http
+libref serve --http 3000
+libref serve --http 3000 --host 0.0.0.0
 
 # Restrict the session to a subset of installed packages
-context serve --libs react next@15.0.4
+libref serve --libs react next@15.0.4
 ```
 
 | Option | Description |
@@ -533,15 +533,15 @@ context serve --libs react next@15.0.4
 | `--host <host>` | Host to bind to (default: 127.0.0.1) |
 | `--libs <names...>` | Restrict the session to a fixed set of installed libraries. Each entry is a name (`react`) or `name@version` (`react@18.3.1`). When set, `search_packages` and `download_package` are hidden so the session is locked to that list. Useful for per-project scoping when you have many packages installed globally. |
 
-The HTTP transport uses the [MCP Streamable HTTP](https://modelcontextprotocol.io/specification/2025-03-26/basic/transports#streamable-http) protocol, enabling multiple clients on the local network to connect to a single server instance. The endpoint is available at `http://<host>:<port>/mcp`.
+The HTTP transport uses the [MCP Streamable HTTP](https://modellibrefprotocol.io/specification/2025-03-26/basic/transports#streamable-http) protocol, enabling multiple clients on the local network to connect to a single server instance. The endpoint is available at `http://<host>:<port>/mcp`.
 
-### `context query <library> <topic>`
+### `libref query <library> <topic>`
 
 Query documentation directly from the command line. Useful for testing and debugging.
 
 ```bash
-# Query a package (use name@version format from 'context list')
-context query 'nextjs@16.0' 'middleware authentication'
+# Query a package (use name@version format from 'libref list')
+libref query 'nextjs@16.0' 'middleware authentication'
 
 # Returns the same JSON format as the MCP get_docs tool
 ```
@@ -555,7 +555,7 @@ context query 'nextjs@16.0' 'middleware authentication'
 │                     Your Machine                        │
 │                                                         │
 │  ┌──────────┐    ┌──────────────────┐    ┌────────────┐ │
-│  │    AI    │    │   Context MCP    │    │ ~/.context │ │
+│  │    AI    │    │   Libref MCP    │    │ ~/.libref │ │
 │  │  Agent   │───▶│     Server       │───▶│  /packages │ │
 │  │          │    │                  │    └────────────┘ │
 │  └──────────┘    └────────┬─────────┘         │         │
@@ -575,7 +575,7 @@ context query 'nextjs@16.0' 'middleware authentication'
 **First time you ask about a library:**
 1. The MCP server searches the community registry
 2. Downloads the pre-built documentation package (a SQLite `.db` file)
-3. Stores it locally in `~/.context/packages/`
+3. Stores it locally in `~/.libref/packages/`
 
 **Every time after:**
 1. FTS5 full-text search finds relevant sections locally
@@ -586,25 +586,25 @@ context query 'nextjs@16.0' 'middleware authentication'
 
 ## :question: FAQ
 
-### Can I use Context with non-JavaScript frameworks like Spring Boot, Django, or Rails?
+### Can I use Libref with non-JavaScript frameworks like Spring Boot, Django, or Rails?
 
-**Yes!** Context is language-agnostic. It natively supports Markdown (`.md`, `.mdx`), AsciiDoc (`.adoc`), reStructuredText (`.rst`), and HTML — no conversion needed.
+**Yes!** Libref is language-agnostic. It natively supports Markdown (`.md`, `.mdx`), AsciiDoc (`.adoc`), reStructuredText (`.rst`), and HTML — no conversion needed.
 
 ```bash
 # Python - FastAPI (Markdown)
-context add https://github.com/fastapi/fastapi --path docs/en/docs
+libref add https://github.com/fastapi/fastapi --path docs/en/docs
 
 # Python - Django (reStructuredText)
-context add https://github.com/django/django --path docs
+libref add https://github.com/django/django --path docs
 
 # Java - Spring Boot (AsciiDoc)
-context add https://github.com/spring-projects/spring-boot --path spring-boot-project/spring-boot-docs/src/docs
+libref add https://github.com/spring-projects/spring-boot --path spring-boot-project/spring-boot-docs/src/docs
 
 # Rust - The Rust Book
-context add https://github.com/rust-lang/book --path src
+libref add https://github.com/rust-lang/book --path src
 ```
 
-Point Context at the docs folder with `--path` and it handles the rest.
+Point Libref at the docs folder with `--path` and it handles the rest.
 
 ### Can I contribute package definitions for new ecosystems?
 

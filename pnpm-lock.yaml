@@ -21,7 +21,7 @@ importers:
         specifier: ^2.6.3
         version: 2.7.6
 
-  packages/context:
+  packages/libref:
     dependencies:
       '@inquirer/prompts':
         specifier: ^8.2.0
@@ -103,9 +103,9 @@ importers:
 
   packages/registry:
     dependencies:
-      '@neuledge/context':
+      '@wbisschoff13/libref':
         specifier: workspace:*
-        version: link:../context
+        version: link:../libref
       commander:
         specifier: ^14.0.0
         version: 14.0.2

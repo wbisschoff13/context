@@ -1,22 +1,22 @@
 {
-  "name": "@neuledge/context",
-  "version": "1.2.0",
-  "mcpName": "io.github.neuledge/context",
-  "description": "Context management for Neuledge packages",
+  "name": "@wbisschoff13/libref",
+  "version": "2.0.0",
+  "mcpName": "io.github.wbisschoff13/libref",
+  "description": "Local library reference for AI agents. Always current.",
   "keywords": [],
-  "homepage": "https://neuledge.com",
+  "homepage": "https://github.com/wbisschoff13/libref",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/neuledge/context.git"
+    "url": "git+https://github.com/wbisschoff13/libref.git"
   },
   "bugs": {
-    "url": "https://github.com/neuledge/context/issues"
+    "url": "https://github.com/wbisschoff13/libref/issues"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "bin": {
-    "context": "./dist/cli.js"
+    "libref": "./dist/cli.js"
   },
   "exports": {
     ".": "./dist/index.js"
@@ -39,7 +39,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "author": "Neuledge",
+  "author": "wbisschoff13",
   "license": "Apache-2.0",
   "dependencies": {
     "@inquirer/prompts": "^8.2.0",

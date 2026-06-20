@@ -1,7 +1,7 @@
 /**
  * Build documentation packages from registry definitions.
  *
- * Uses @neuledge/context functions directly (workspace dependency)
+ * Uses @wbisschoff13/libref functions directly (workspace dependency)
  * to clone repos, read docs, and build SQLite packages.
  *
  * Supports both versioned (clone at specific tag) and unversioned
@@ -15,7 +15,7 @@ import {
   buildPackage,
   cloneRepository,
   readLocalDocsFiles,
-} from "@neuledge/context";
+} from "@wbisschoff13/libref";
 import {
   constructTag,
   isGitVersionEntry,
