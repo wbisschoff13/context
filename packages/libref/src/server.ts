@@ -17,6 +17,7 @@ import {
   SEARCH_PACKAGES_DESCRIPTION,
   SEARCH_PACKAGES_NAME_DESCRIPTION,
 } from "./guidance.js";
+import { resolveQueryPackage } from "./resolve-package.js";
 import { type SearchResult, search } from "./search.js";
 import type { PackageInfo, PackageStore } from "./store.js";
 
@@ -250,7 +251,7 @@ export class ContextServer {
     topic: string,
   ): { content: { type: "text"; text: string }[] } {
     const packages = this.visiblePackages();
-    const pkg = packages.find((p) => formatLibraryName(p) === library);
+    const pkg = resolveQueryPackage(library, packages);
 
     if (!pkg) {
       return {

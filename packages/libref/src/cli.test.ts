@@ -8,6 +8,7 @@ import {
   parseRegistryPackage,
   resolveAllowedLibraries,
   resolveLlmsTxtUrls,
+  resolveQueryPackage,
   suggestPackageNameFromUrl,
   urlMatchesPathPrefix,
 } from "./cli.js";
@@ -505,6 +506,155 @@ describe("resolveAllowedLibraries", () => {
       exit.mockRestore();
       err.mockRestore();
     }
+  });
+});
+
+describe("resolveQueryPackage", () => {
+  const installed: PackageInfo[] = [
+    {
+      name: "opentofu",
+      version: "1.12",
+      path: "/opentofu.db",
+      sizeBytes: 0,
+      sectionCount: 0,
+    },
+    {
+      name: "developers.cloudflare.com",
+      version: "latest",
+      path: "/cf.db",
+      sizeBytes: 0,
+      sectionCount: 0,
+    },
+    {
+      name: "@trpc/server",
+      version: "10.0.0",
+      path: "/trpc.db",
+      sizeBytes: 0,
+      sectionCount: 0,
+    },
+  ];
+
+  it("matches name@version exactly", () => {
+    expect(resolveQueryPackage("opentofu@1.12", installed)?.name).toBe(
+      "opentofu",
+    );
+    expect(
+      resolveQueryPackage("developers.cloudflare.com@latest", installed)
+        ?.version,
+    ).toBe("latest");
+  });
+
+  it("matches by name only when no version is given", () => {
+    expect(resolveQueryPackage("opentofu", installed)?.name).toBe("opentofu");
+    expect(
+      resolveQueryPackage("developers.cloudflare.com", installed)?.name,
+    ).toBe("developers.cloudflare.com");
+  });
+
+  it("returns null when the requested version is not installed", () => {
+    expect(resolveQueryPackage("opentofu@1.13", installed)).toBeNull();
+  });
+
+  it("strips an optional registry/ prefix", () => {
+    expect(resolveQueryPackage("npm/opentofu@1.12", installed)?.name).toBe(
+      "opentofu",
+    );
+    expect(resolveQueryPackage("pip/opentofu", installed)?.name).toBe(
+      "opentofu",
+    );
+    expect(
+      resolveQueryPackage("npm/developers.cloudflare.com@latest", installed)
+        ?.name,
+    ).toBe("developers.cloudflare.com");
+  });
+
+  it("treats a trailing @ as no version", () => {
+    expect(resolveQueryPackage("opentofu@", installed)?.name).toBe("opentofu");
+  });
+
+  it("preserves scoped package names", () => {
+    expect(resolveQueryPackage("@trpc/server@10.0.0", installed)?.name).toBe(
+      "@trpc/server",
+    );
+    expect(resolveQueryPackage("@trpc/server", installed)?.name).toBe(
+      "@trpc/server",
+    );
+    expect(
+      resolveQueryPackage("npm/@trpc/server@10.0.0", installed)?.name,
+    ).toBe("@trpc/server");
+  });
+
+  it("trims surrounding whitespace", () => {
+    expect(resolveQueryPackage("  opentofu  ", installed)?.name).toBe(
+      "opentofu",
+    );
+  });
+
+  it("returns null for empty or unknown input", () => {
+    expect(resolveQueryPackage("", installed)).toBeNull();
+    expect(resolveQueryPackage("   ", installed)).toBeNull();
+    expect(resolveQueryPackage("unknown-lib", installed)).toBeNull();
+  });
+
+  it("falls back to main-domain match when no exact name exists", () => {
+    const withDomains: PackageInfo[] = [
+      {
+        name: "developers.cloudflare.com",
+        version: "latest",
+        path: "/cf-dev.db",
+        sizeBytes: 0,
+        sectionCount: 0,
+      },
+      {
+        name: "mui.com",
+        version: "latest",
+        path: "/mui.db",
+        sizeBytes: 0,
+        sectionCount: 0,
+      },
+    ];
+    expect(
+      resolveQueryPackage("cloudflare", withDomains)?.name,
+    ).toBe("developers.cloudflare.com");
+    expect(resolveQueryPackage("mui", withDomains)?.name).toBe("mui.com");
+    expect(
+      resolveQueryPackage("cloudflare.com", withDomains)?.name,
+    ).toBe("developers.cloudflare.com");
+  });
+
+  it("prefers an exact name match over the domain fallback", () => {
+    const conflict: PackageInfo[] = [
+      {
+        name: "cloudflare",
+        version: "1.0.0",
+        path: "/cf-npm.db",
+        sizeBytes: 0,
+        sectionCount: 0,
+      },
+      {
+        name: "developers.cloudflare.com",
+        version: "latest",
+        path: "/cf-dev.db",
+        sizeBytes: 0,
+        sectionCount: 0,
+      },
+    ];
+    expect(resolveQueryPackage("cloudflare", conflict)?.name).toBe(
+      "cloudflare",
+    );
+  });
+
+  it("does not fall back to domain match when a version is pinned", () => {
+    const withDomains: PackageInfo[] = [
+      {
+        name: "developers.cloudflare.com",
+        version: "latest",
+        path: "/cf-dev.db",
+        sizeBytes: 0,
+        sectionCount: 0,
+      },
+    ];
+    expect(resolveQueryPackage("cloudflare@1.0.0", withDomains)).toBeNull();
   });
 });
 

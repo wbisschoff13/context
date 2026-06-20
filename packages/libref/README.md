@@ -539,9 +539,20 @@ The HTTP transport uses the [MCP Streamable HTTP](https://modellibrefprotocol.io
 
 Query documentation directly from the command line. Useful for testing and debugging.
 
+The `<library>` argument accepts the same identifier shapes as the rest of the CLI: `name@version` (as printed by `libref list`), a bare `name` (matches whatever version is installed), or a `registry/name[@version]` spec. For docs sites, you can also pass the second-level domain or the full main domain — e.g. `cloudflare` or `cloudflare.com` — and it will match an installed package like `developers.cloudflare.com` (only when no `cloudflare` package exists).
+
 ```bash
-# Query a package (use name@version format from 'libref list')
+# Exact name@version from 'libref list'
 libref query 'nextjs@16.0' 'middleware authentication'
+
+# Bare name — matches the installed version
+libref query 'nextjs' 'middleware authentication'
+
+# A registry prefix is also accepted (and ignored for installed packages)
+libref query 'npm/nextjs@16.0' 'middleware authentication'
+
+# For docs sites: a brand or full main domain matches the site package
+libref query 'cloudflare' 'cloudflare_record'
 
 # Returns the same JSON format as the MCP get_docs tool
 ```
