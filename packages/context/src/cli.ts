@@ -53,6 +53,7 @@ import { fetchLinkedDocs } from "./llms-txt.js";
 import { buildPackage, type MarkdownFile } from "./package-builder.js";
 import { type SearchResult, search } from "./search.js";
 import { ContextServer } from "./server.js";
+import { fetchSitemapUrls } from "./sitemap.js";
 import {
   getPackageFileName,
   type PackageInfo,
@@ -288,6 +289,66 @@ export function resolveLlmsTxtUrls(source: string): string[] {
   return LLMS_TXT_PATHS.map((path) => `${base}${path}`);
 }
 
+/** Derive a stable package-internal path for a documentation URL. */
+export function docPathFromUrl(url: string): string {
+  const parsed = new URL(url);
+  let path = parsed.pathname.replace(/\/$/, "") || "/index";
+  if (!/\.(md|mdx|adoc|rst|txt)$/i.test(path)) {
+    path += ".md";
+  }
+  return parsed.host + path;
+}
+
+/** Whether a URL's pathname matches (or sits under) a source path prefix. */
+export function urlMatchesPathPrefix(url: string, sourcePath: string): boolean {
+  try {
+    const u = new URL(url);
+    const norm = (p: string): string =>
+      p.length > 1 && p.endsWith("/") ? p.slice(0, -1) : p;
+    const uPath = norm(u.pathname);
+    const sPath = norm(sourcePath);
+    if (sPath === "/" || sPath === "") return true;
+    return uPath === sPath || uPath.startsWith(`${sPath}/`);
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Fallback for sites without llms.txt: discover pages via sitemap.xml,
+ * filter to URLs under the source's path prefix, fetch each as markdown.
+ * Returns an empty array when no sitemap is found or no URLs match.
+ */
+async function fetchSitemapPages(source: string): Promise<MarkdownFile[]> {
+  const sourcePath = new URL(source).pathname;
+  const allUrls = await fetchSitemapUrls(source, {
+    log: (msg) => console.log(msg),
+  });
+  const urls = allUrls.filter((u) => urlMatchesPathPrefix(u, sourcePath));
+  if (urls.length === 0) return [];
+
+  console.log(
+    `Fetching ${urls.length} page${urls.length === 1 ? "" : "s"} from sitemap...`,
+  );
+
+  const files: MarkdownFile[] = [];
+  let next = 0;
+  async function worker(): Promise<void> {
+    while (next < urls.length) {
+      const i = next++;
+      const url = urls[i];
+      if (!url) return;
+      const page = await fetchWebPage(url);
+      if (!page.ok) continue;
+      files.push({ path: docPathFromUrl(url), content: page.content });
+    }
+  }
+
+  const workerCount = Math.min(5, urls.length);
+  await Promise.all(Array.from({ length: workerCount }, () => worker()));
+  return files;
+}
+
 /** Install a package from a website's llms.txt file. */
 async function addFromWebsite(
   source: string,
@@ -318,26 +379,62 @@ async function addFromWebsite(
   }
 
   if (!content || !resolvedUrl) {
-    // Fallback: fetch the original URL as a single page
-    console.log(`No llms.txt found. Fetching page content directly...`);
+    // Fallback 1: try the site's sitemap.xml to fetch the whole docs section.
+    console.log(`No llms.txt found. Trying sitemap.xml...`);
+    const sitemapFiles = await fetchSitemapPages(source);
+    if (sitemapFiles.length > 0) {
+      const packageName = options.name ?? suggestPackageNameFromUrl(source);
+      const versionLabel = options.version ?? "latest";
+
+      ensureDataDir();
+      const outputPath = join(
+        DATA_DIR,
+        getPackageFileName(packageName, versionLabel),
+      );
+
+      console.log(`Building package...`);
+      const result = buildPackage(outputPath, sitemapFiles, {
+        name: packageName,
+        version: versionLabel,
+        sourceUrl: source,
+      });
+
+      if (result.sectionCount === 0) {
+        throw new Error(
+          `No documentation sections could be extracted from ${source}. Sitemap URLs may not contain readable content.`,
+        );
+      }
+
+      console.log(`✓ Built package: ${packageName}@${versionLabel}`);
+      console.log(`✓ Saved to ${outputPath}`);
+
+      if (options.save) {
+        savePackageCopy(outputPath, options.save, packageName, versionLabel);
+      }
+
+      const sizeBytes = statSync(outputPath).size;
+
+      console.log(
+        `\nInstalled: ${packageName}@${versionLabel} (${formatBytes(sizeBytes)}, ${result.sectionCount} sections)`,
+      );
+      return;
+    }
+
+    // Fallback 2: fetch the source URL as a single page.
+    console.log(`No sitemap found. Fetching page content directly...`);
     const page = await fetchWebPage(source);
     if (!page.ok) {
       throw new Error(
-        `No llms.txt found at ${source}. Tried:\n${urls.map((u) => `  - ${u}`).join("\n")}\n\nDirect fetch also failed: ${page.reason}.`,
+        `No llms.txt or sitemap found at ${source}. Direct fetch also failed: ${page.reason}.`,
       );
     }
 
     const packageName = options.name ?? suggestPackageNameFromUrl(source);
     const versionLabel = options.version ?? "latest";
 
-    const parsedUrl = new URL(source);
-    let path = parsedUrl.pathname.replace(/\/$/, "") || "/index";
-    if (!/\.(md|mdx|adoc|rst|txt)$/i.test(path)) {
-      path += ".md";
-    }
-    const docPath = parsedUrl.host + path;
-
-    const files: MarkdownFile[] = [{ path: docPath, content: page.content }];
+    const files: MarkdownFile[] = [
+      { path: docPathFromUrl(source), content: page.content },
+    ];
 
     ensureDataDir();
     const outputPath = join(
