@@ -8,7 +8,7 @@ export const GET_DOCS_TOPIC_DESCRIPTION =
   "Use a short API name, keyword, or phrase (for example: 'createServer', 'cors middleware'). Search terms are all matched together, so extra words will narrow but can also eliminate results.";
 
 export const SEARCH_PACKAGES_DESCRIPTION =
-  "Search for documentation packages available on the registry server. Use short package names like 'react', 'next', or 'fastapi'. If you find a match, call download_package, then retry get_docs. If the registry package is unavailable or insufficient, ask the user to run `libref add` to build docs from source.";
+  "Search for documentation packages available on the registry server. Use short package names like 'react', 'next', or 'fastapi'. If you find a match, call download_package, then retry get_docs. If the registry package is unavailable or insufficient, ask the user to run `libref add <url>` — any website URL works (auto-fetches llms.txt or falls back to sitemap.xml), and GitHub repos or local directories are also accepted.";
 
 export const SEARCH_PACKAGES_NAME_DESCRIPTION =
   'Short package name to search for (e.g., "react", "next", "fastapi")';
@@ -20,4 +20,4 @@ export const NO_DOCUMENTATION_FOUND_MESSAGE =
   "No documentation found. Try a shorter query using just the API or function name, for example 'cors' instead of 'CORS middleware configuration'.";
 
 export const MISSING_PACKAGE_GUIDANCE =
-  "If the library is not installed, search the registry with search_packages, download it with download_package, then retry get_docs. If the registry package is unavailable or insufficient, ask the user to run `libref add` to build docs from source.";
+  "If the library is not installed, search the registry with search_packages, download it with download_package, then retry get_docs. If the registry package is unavailable or insufficient, ask the user to run `libref add <url>` to build docs from source — any website URL works (auto-fetches llms.txt or falls back to sitemap.xml), and GitHub repos or local directories are also accepted.";

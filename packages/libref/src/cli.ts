@@ -1052,11 +1052,11 @@ async function addFromLocalDir(
 program
   .command("add")
   .description(
-    "Install a documentation package from file, URL, GitHub, git repo, website (llms.txt), or local directory",
+    "Install a documentation package from file, URL, GitHub, git repo, website (auto-fetches llms.txt or falls back to sitemap.xml), or local directory",
   )
   .argument(
     "<source>",
-    "Package source: local .db file, URL (.db), GitHub URL, git URL, website URL (auto-fetches llms.txt), or local directory",
+    "Package source: local .db file, URL (.db), GitHub URL, git URL, website URL (auto-fetches llms.txt or falls back to sitemap.xml), or local directory",
   )
   .option("--tag <tag>", "Git tag to checkout (for git repos)")
   .option("--pkg-version <version>", "Custom version label")
@@ -1122,7 +1122,9 @@ program
 
     if (packages.length === 0) {
       console.log("No packages installed.");
-      console.log("Run: libref add <package.db>");
+      console.log(
+        "Run: libref add <source>  (local .db file, URL, GitHub repo, or website)",
+      );
       return;
     }
 
